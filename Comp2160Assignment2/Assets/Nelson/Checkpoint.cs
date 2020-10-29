@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Checkpoint : MonoBehaviour
 {
-    Light light;
+    private Light light;
     public float lightIntensity = 10f;
     public bool ActiveCheckpoint
     {
@@ -30,7 +30,7 @@ public class Checkpoint : MonoBehaviour
         light.intensity = lightIntensity;
     }
 
-    private void OnTriggerEnter(Collider other)
+    void OnTriggerEnter(Collider other)
     {
         ActiveCheckpoint = true;
     }

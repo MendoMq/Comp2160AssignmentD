@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4870247807097999704}
   - component: {fileID: 6325678634786139774}
   - component: {fileID: 7102737755479349760}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -104,7 +104,7 @@ GameObject:
   - component: {fileID: 8558714374494313498}
   - component: {fileID: 1047265461}
   - component: {fileID: 2959096973915426156}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Checkpoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -166,7 +166,7 @@ GameObject:
   - component: {fileID: 8558714374897205915}
   - component: {fileID: 8558714374897205916}
   - component: {fileID: 8558714374897205917}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -258,7 +258,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8558714375756158894}
   - component: {fileID: 8558714375756158893}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Point Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
