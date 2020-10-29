@@ -31,6 +31,11 @@ public class CheckpointManager : MonoBehaviour
         FinalCheckpointReached = false;
         CheckpointTargetCount = 0;
 
+        if (transform.childCount < 1)
+        {
+            Debug.Log("Make sure there is at least 2 children that are Checkpoints");
+        }
+
         for (int i = 0; i < transform.childCount; i++)
         {
             // If the child is a checkpoint
