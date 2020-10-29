@@ -5,38 +5,43 @@ using UnityEngine;
 public class CheckpointManager : MonoBehaviour
 {
 
-    public List<Checkpoint> checkpoints = new List<Checkpoint>();
+    List<Checkpoint> checkpoints = new List<Checkpoint>();
 
     int checkpointCount = 0;
 
-    // Start is called before the first frame update
     void Start()
     {
-        
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            // If the child is a checkpoint
+            Checkpoint checkpoint = transform.GetChild(i).GetComponent<Checkpoint>();
+            if (checkpoint)
+            {
+                checkpoints.Add(checkpoint);
+            }
+        }
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (checkpoints[checkpointCount].ActiveCheckpoint)
         {
-            if (checkpointCount >= checkpoints.Count)
+            if (checkpointCount == 0) // First checkpoint
             {
+                checkpoints[checkpointCount].ActivateLight();
+                checkpointCount++;
+            }
+            else if (checkpointCount >= checkpoints.Count - 1) // Final checkpoint
+            {
+                checkpoints[checkpointCount].ActivateLight();
+                checkpoints[checkpointCount - 1].DeactivateLight();
                 Debug.Log("completed");
             }
-            else
+            else // Checkpoints in between
             {
-                if (checkpointCount == 0)
-                {
-                    checkpoints[checkpointCount].ActivateLight();
-                    checkpointCount++;
-                }
-                else
-                {
-                    checkpoints[checkpointCount].ActivateLight();
-                    checkpoints[checkpointCount - 1].DeactivateLight();
-                    checkpointCount++;
-                }
+                checkpoints[checkpointCount].ActivateLight();
+                checkpoints[checkpointCount - 1].DeactivateLight();
+                checkpointCount++;
             }
         }
     }
