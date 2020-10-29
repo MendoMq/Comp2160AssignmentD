@@ -18,6 +18,7 @@ public class Checkpoint : MonoBehaviour
         ActiveCheckpoint = false;
     }
 
+    // Can't interact with this checkpoint anymore
     public void DeactivateLight()
     {
         light.intensity = 0;

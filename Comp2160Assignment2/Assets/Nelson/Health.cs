@@ -5,40 +5,62 @@ using UnityEngine;
 public class Health : MonoBehaviour
 {
     public float maxHealth;
-    private float currentHealth;
+    public float CurrentHealth
+    {
+        private set;
+        get;
+    }
 
-    public LayerMask checkpoint;
-    public LayerMask[] obstacles;
-
-    [Range(0,1)]
+    [Range(0, 1)]
     public float smokeThreshold;
 
     public float healthRestoreAmount;
 
+    public float collisionForceMinimum = 3f;
+
+    public bool PlayerDied
+    {
+        private set;
+        get;
+    }
+
     void Start()
     {
-        currentHealth = maxHealth;
+        CurrentHealth = maxHealth;
+        PlayerDied = false;
         Debug.Log("Smoke when health is below " + (maxHealth * smokeThreshold));
     }
 
     void Update()
     {
-        
+        if (CurrentHealth <= 0)
+        {
+            PlayerDied = true;
+        }
     }
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.layer == 10)
+        if (collision.gameObject.layer == 10) // Obstacle layer
         {
             float collisionForce = collision.relativeVelocity.magnitude;
-            currentHealth -= collisionForce;
-            Debug.Log("Health -= " + collisionForce + ". Current health: " + currentHealth);
+            if (collisionForce > collisionForceMinimum)
+            {
+                Debug.Log("Collision force " + collisionForce + " is higher than " +
+                    collisionForceMinimum + ". Health minus " + collisionForce);
+                CurrentHealth -= collisionForce;
+            }
+            else
+            {
+                Debug.Log("Collision force " + collisionForce + " is lower than " +
+                    collisionForceMinimum + ". No health lost");
+            }
         }
     }
 
     public void RestoreHealth()
     {
-        currentHealth += healthRestoreAmount;
+        CurrentHealth += healthRestoreAmount;
         Debug.Log("Health increased by " + healthRestoreAmount);
     }
 }

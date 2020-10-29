@@ -4,18 +4,32 @@ using UnityEngine;
 
 public class CheckpointManager : MonoBehaviour
 {
-
-    private List<Checkpoint> checkpoints = new List<Checkpoint>();
-
-    private int checkpointCount = 0;
+    // Checkpoints to get (0 being first, the end being last)
+    public List<Checkpoint> Checkpoints
+    {
+        private set;
+        get;
+    }
+    // What checkpoint is next? 0 = first checkpoint, 1 = second, etc
+    public int CheckpointTargetCount
+    {
+        private set;
+        get;
+    }
+    public bool FinalCheckpointReached
+    {
+        private set;
+        get;
+    }
 
     Health playerHealth;
 
-    bool finalCheckpointReached = false;
-
     void Start()
     {
+        Checkpoints = new List<Checkpoint>();
         playerHealth = FindObjectOfType<Health>();
+        FinalCheckpointReached = false;
+        CheckpointTargetCount = 0;
 
         for (int i = 0; i < transform.childCount; i++)
         {
@@ -23,34 +37,35 @@ public class CheckpointManager : MonoBehaviour
             Checkpoint checkpoint = transform.GetChild(i).GetComponent<Checkpoint>();
             if (checkpoint)
             {
-                checkpoints.Add(checkpoint);
+                Checkpoints.Add(checkpoint);
             }
         }
     }
 
     void Update()
     {
-        if (checkpoints[checkpointCount].ActiveCheckpoint && !finalCheckpointReached)
+        // Waits until x checkpoint becomes active
+        if (Checkpoints[CheckpointTargetCount].ActiveCheckpoint && !FinalCheckpointReached)
         {
             playerHealth.RestoreHealth();
 
-            if (checkpointCount == 0) // First checkpoint
+            if (CheckpointTargetCount == 0) // First checkpoint
             {
-                checkpoints[checkpointCount].ActivateLight();
-                checkpointCount++;
+                Checkpoints[CheckpointTargetCount].ActivateLight();
+                CheckpointTargetCount++;
             }
-            else if (checkpointCount >= checkpoints.Count - 1) // Final checkpoint
+            else if (CheckpointTargetCount >= Checkpoints.Count - 1) // Final checkpoint
             {
-                checkpoints[checkpointCount].ActivateLight();
-                checkpoints[checkpointCount - 1].DeactivateLight();
-                finalCheckpointReached = true;
+                Checkpoints[CheckpointTargetCount].ActivateLight();
+                Checkpoints[CheckpointTargetCount - 1].DeactivateLight();
+                FinalCheckpointReached = true;
                 Debug.Log("Level completed");
             }
             else // Checkpoints in between
             {
-                checkpoints[checkpointCount].ActivateLight();
-                checkpoints[checkpointCount - 1].DeactivateLight();
-                checkpointCount++;
+                Checkpoints[CheckpointTargetCount].ActivateLight();
+                Checkpoints[CheckpointTargetCount - 1].DeactivateLight();
+                CheckpointTargetCount++;
             }
         }
     }
