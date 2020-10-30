@@ -43,6 +43,7 @@ public class Health : MonoBehaviour
     {
         if (collision.gameObject.layer == 10) // Obstacle layer
         {
+            Debug.Log("COLLISION!");
             float collisionForce = collision.relativeVelocity.magnitude;
             if (collisionForce > collisionForceMinimum)
             {
