@@ -33,9 +33,7 @@ public class Checkpoint : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Player"){
-            Debug.Log("CHECKPOINT");
-            ActiveCheckpoint = true;
-        }
+        Debug.Log("CHECKPOINT");
+        ActiveCheckpoint = true;
     }
 }

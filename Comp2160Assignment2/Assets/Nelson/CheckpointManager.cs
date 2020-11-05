@@ -45,6 +45,8 @@ public class CheckpointManager : MonoBehaviour
                 Checkpoints.Add(checkpoint);
             }
         }
+
+        Checkpoints[0].ActivateLight();
     }
 
     void Update()
@@ -56,21 +58,21 @@ public class CheckpointManager : MonoBehaviour
 
             if (CheckpointTargetCount == 0) // First checkpoint
             {
-                Checkpoints[CheckpointTargetCount].ActivateLight();
+                Checkpoints[CheckpointTargetCount].DeactivateLight();
                 CheckpointTargetCount++;
+                Checkpoints[CheckpointTargetCount].ActivateLight();
             }
             else if (CheckpointTargetCount >= Checkpoints.Count - 1) // Final checkpoint
             {
-                Checkpoints[CheckpointTargetCount].ActivateLight();
-                Checkpoints[CheckpointTargetCount - 1].DeactivateLight();
+                Checkpoints[CheckpointTargetCount].DeactivateLight();
                 FinalCheckpointReached = true;
                 Debug.Log("Level completed");
             }
             else // Checkpoints in between
             {
-                Checkpoints[CheckpointTargetCount].ActivateLight();
-                Checkpoints[CheckpointTargetCount - 1].DeactivateLight();
+                Checkpoints[CheckpointTargetCount].DeactivateLight();
                 CheckpointTargetCount++;
+                Checkpoints[CheckpointTargetCount].ActivateLight();
             }
         }
     }
