@@ -13,27 +13,33 @@ public class PlayerMove : MonoBehaviour {
 	RaycastHit hit;
 	public LayerMask rayLayermask;
 
+	Health health;
+
 	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody>();
+		health = GetComponent<Health>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if(Input.GetAxis("Vertical")!=0)
+		if(!health.PlayerDied)
 		{
-			if(isGrounded)
+			if(Input.GetAxis("Vertical")!=0)
 			{
-				rb.velocity = (transform.forward *Input.GetAxis("Vertical") *thrust);
+				if(isGrounded)
+				{
+					rb.velocity = (transform.forward *Input.GetAxis("Vertical") *thrust);
+				}
 			}
-		}
 
-		if(Input.GetAxis("Horizontal")!=0)
-		{
-			if(isGrounded 
-				&& Input.GetAxis("Vertical")!=0)
+			if(Input.GetAxis("Horizontal")!=0)
 			{
-				transform.Rotate(new Vector3(0,Input.GetAxis("Horizontal") * Input.GetAxis("Vertical") * turn,0));
+				if(isGrounded 
+					&& Input.GetAxis("Vertical")!=0)
+				{
+					transform.Rotate(new Vector3(0,Input.GetAxis("Horizontal") * Input.GetAxis("Vertical") * turn,0));
+				}
 			}
 		}
 

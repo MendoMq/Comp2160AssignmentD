@@ -24,6 +24,8 @@ public class Health : MonoBehaviour
         get;
     }
 
+    UIManager ui;
+
     void Start()
     {
         CurrentHealth = maxHealth;
@@ -33,9 +35,11 @@ public class Health : MonoBehaviour
 
     void Update()
     {
-        if (CurrentHealth <= 0)
+        if (CurrentHealth <= 0 && PlayerDied != true)
         {
             PlayerDied = true;
+            ui = FindObjectOfType<UIManager>();
+            ui.gameOverScreen(0);
         }
     }
 
