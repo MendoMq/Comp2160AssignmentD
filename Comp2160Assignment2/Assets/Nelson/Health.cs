@@ -50,6 +50,7 @@ public class Health : MonoBehaviour
                 Debug.Log("Collision force " + collisionForce + " is higher than " +
                     collisionForceMinimum + ". Health minus " + collisionForce);
                 CurrentHealth -= collisionForce;
+                
             }
             else
             {
