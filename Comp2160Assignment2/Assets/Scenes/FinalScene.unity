@@ -654,7 +654,7 @@ PrefabInstance:
     - target: {fileID: 5984151109909143319, guid: 293a87126c2483c4ba15152e0e1e50e3,
         type: 3}
       propertyPath: turn
-      value: 2
+      value: 1.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 293a87126c2483c4ba15152e0e1e50e3, type: 3}
@@ -1008,12 +1008,12 @@ PrefabInstance:
     - target: {fileID: 2327991705195016177, guid: dfe6e7d6e11a8a3428b86e461f47f6f3,
         type: 3}
       propertyPath: distanceScale
-      value: 0.3
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 2327991705195016177, guid: dfe6e7d6e11a8a3428b86e461f47f6f3,
         type: 3}
       propertyPath: smoothTime
-      value: 0.9
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 2327991705195016177, guid: dfe6e7d6e11a8a3428b86e461f47f6f3,
         type: 3}
