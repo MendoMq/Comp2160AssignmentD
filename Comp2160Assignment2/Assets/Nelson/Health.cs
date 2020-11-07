@@ -10,24 +10,23 @@ public class Health : MonoBehaviour
         private set;
         get;
     }
+    public float healthRestoreAmount;
+
 
     [Range(0, 1)]
     public float smokeThreshold;
-
-    public float healthRestoreAmount;
-
     public float collisionForceMinimum = 3f;
-
     public bool PlayerDied
     {
         private set;
         get;
     }
 
-    UIManager ui;
+    CheckpointManager cm;
 
     void Start()
     {
+        cm = FindObjectOfType<CheckpointManager>();
         CurrentHealth = maxHealth;
         PlayerDied = false;
         Debug.Log("Smoke when health is below " + (maxHealth * smokeThreshold));
@@ -35,11 +34,18 @@ public class Health : MonoBehaviour
 
     void Update()
     {
+        // Player death
         if (CurrentHealth <= 0 && PlayerDied != true)
         {
             PlayerDied = true;
-            ui = FindObjectOfType<UIManager>();
-            ui.gameOverScreen(0);
+        }
+
+        // Restore health
+        if (cm.Checkpoints[cm.CheckpointTargetCount].ActiveCheckpoint
+            && !cm.FinalCheckpointReached)
+        {
+            CurrentHealth += healthRestoreAmount;
+            Debug.Log("Health increased by " + healthRestoreAmount);
         }
     }
 
@@ -62,11 +68,5 @@ public class Health : MonoBehaviour
                     collisionForceMinimum + ". No health lost");
             }
         }
-    }
-
-    public void RestoreHealth()
-    {
-        CurrentHealth += healthRestoreAmount;
-        Debug.Log("Health increased by " + healthRestoreAmount);
     }
 }

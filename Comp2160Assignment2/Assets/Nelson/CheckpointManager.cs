@@ -22,18 +22,15 @@ public class CheckpointManager : MonoBehaviour
         get;
     }
 
-    Health playerHealth;
-
     void Start()
     {
         Checkpoints = new List<Checkpoint>();
-        playerHealth = FindObjectOfType<Health>();
         FinalCheckpointReached = false;
         CheckpointTargetCount = 0;
 
         if (transform.childCount < 1)
         {
-            Debug.Log("Make sure there is at least 2 children that are Checkpoints");
+            Debug.Log("Make sure there is at least 1 child that is Checkpoints");
         }
 
         for (int i = 0; i < transform.childCount; i++)
@@ -49,13 +46,11 @@ public class CheckpointManager : MonoBehaviour
         Checkpoints[0].ActivateLight();
     }
 
-    void Update()
+    void LateUpdate()
     {
         // Waits until x checkpoint becomes active
         if (Checkpoints[CheckpointTargetCount].ActiveCheckpoint && !FinalCheckpointReached)
         {
-            playerHealth.RestoreHealth();
-
             if (CheckpointTargetCount == 0) // First checkpoint
             {
                 Checkpoints[CheckpointTargetCount].DeactivateLight();

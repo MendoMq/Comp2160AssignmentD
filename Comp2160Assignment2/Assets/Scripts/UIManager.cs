@@ -69,14 +69,19 @@ public class UIManager : MonoBehaviour
             Debug.Log("FINAL POINT REACHED");
             TimeList.Add(timeText);
             Debug.Log(TimeList[TimeList.Count-1]);
-            gameOverScreen(1);
+            gameOverScreen();
+        }
+
+        if(player.PlayerDied && !gameOver)
+        {
+            gameOverScreen();
         }
     }
 
-    public void gameOverScreen(int status)
+    public void gameOverScreen()
     {
         gameOver = true;
-        if(status==0)
+        if(player.PlayerDied)
         {
             resultText.text = "You Lost!";
         }
