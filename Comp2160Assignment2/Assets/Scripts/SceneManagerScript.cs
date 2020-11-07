@@ -6,6 +6,6 @@ using UnityEngine;
 public class SceneManagerScript : MonoBehaviour
 {
     public void RestartScene(){
-        SceneManager.LoadScene("FinalScene");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
