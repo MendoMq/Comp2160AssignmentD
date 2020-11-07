@@ -13,13 +13,12 @@ public class Checkpoint : MonoBehaviour
         get;
     }
 
-    SphereCollider sphereCollider;
+    private SphereCollider sphereCollider;
 
-    void Start()
+    void Awake()
     {
         checkpointLight = GetComponentInChildren<Light>();
         sphereCollider = GetComponent<SphereCollider>();
-
         sphereCollider.enabled = false;
         CompletedCheckpoint = false;
     }

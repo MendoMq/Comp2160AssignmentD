@@ -139,7 +139,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71d5aebabea434cde988dbe7110cfb90, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  checkpointLight: {fileID: 8558714375756158893}
   lightIntensity: 10
+  sphereCollider: {fileID: 2959096973915426156}
 --- !u!135 &2959096973915426156
 SphereCollider:
   m_ObjectHideFlags: 0
