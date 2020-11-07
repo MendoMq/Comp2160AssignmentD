@@ -61,7 +61,6 @@ public class CheckpointManager : MonoBehaviour
             {
                 Checkpoints[CheckpointTargetCount].DeactivateLight();
                 FinalCheckpointReached = true;
-                Debug.Log("Level completed");
             }
             else // Checkpoints in between
             {

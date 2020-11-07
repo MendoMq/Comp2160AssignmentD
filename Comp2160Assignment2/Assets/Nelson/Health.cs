@@ -33,6 +33,7 @@ public class Health : MonoBehaviour
     {
         cm = FindObjectOfType<CheckpointManager>();
         smokeParticle = GetComponentInChildren<ParticleSystem>();
+
         CurrentHealth = maxHealth;
         PlayerDied = false;
         smokeParticle.Stop();
@@ -84,17 +85,12 @@ public class Health : MonoBehaviour
         {
             collisionCooldownTimer = collisionCooldown;
             float collisionForce = collision.relativeVelocity.magnitude;
+
             if (collisionForce > collisionForceMinimum)
             {
-                Debug.Log("Collision force " + collisionForce + " is higher than " +
-                    collisionForceMinimum + ". Health minus " + collisionForce);
                 CurrentHealth -= collisionForce;
             }
-            else
-            {
-                Debug.Log("Collision force " + collisionForce + " is lower than " +
-                    collisionForceMinimum + ". No health lost");
-            }
+
         }
     }
 }

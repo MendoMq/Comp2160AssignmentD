@@ -6,6 +6,7 @@ public class Checkpoint : MonoBehaviour
 {
     private Light checkpointLight;
     public float lightIntensity = 10f;
+
     public bool CompletedCheckpoint
     {
         private set;
