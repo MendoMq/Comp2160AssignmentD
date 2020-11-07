@@ -52,7 +52,7 @@ public class UIManager : MonoBehaviour
         
         uiTimer.text = timeText;
 
-        if(checkpointManager.Checkpoints[targetCount].ActiveCheckpoint && !checkpointManager.FinalCheckpointReached)
+        if(checkpointManager.Checkpoints[targetCount].CompletedCheckpoint && !checkpointManager.FinalCheckpointReached)
         {
             Debug.Log("POINT NUMBER "+ (targetCount+1) +" REACHED");
 

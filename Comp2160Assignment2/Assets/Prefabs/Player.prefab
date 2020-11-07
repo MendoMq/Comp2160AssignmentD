@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5984151109421250997}
   - component: {fileID: 5984151109421250996}
   - component: {fileID: 5984151109421250999}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Cylinder (3)
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -205,7 +205,7 @@ GameObject:
   - component: {fileID: 5984151109566233002}
   - component: {fileID: 5984151109566233005}
   - component: {fileID: 5984151109566233004}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Cylinder
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -466,8 +466,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 10
-  smokeThreshold: 0.5
   healthRestoreAmount: 2
+  smokeThreshold: 0.5
   collisionForceMinimum: 6
 --- !u!1 &5984151110500673477
 GameObject:
@@ -576,7 +576,7 @@ GameObject:
   - component: {fileID: 5984151110611376360}
   - component: {fileID: 5984151110611376363}
   - component: {fileID: 5984151110611376362}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Cylinder (2)
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -764,7 +764,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5984151110947602700}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Wheels
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -802,7 +802,7 @@ GameObject:
   - component: {fileID: 5984151111023395605}
   - component: {fileID: 5984151111023395604}
   - component: {fileID: 5984151111023395607}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Cylinder (1)
   m_TagString: Player
   m_Icon: {fileID: 0}

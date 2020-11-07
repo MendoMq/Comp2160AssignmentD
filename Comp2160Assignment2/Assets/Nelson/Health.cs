@@ -22,6 +22,9 @@ public class Health : MonoBehaviour
         get;
     }
 
+    public float collisionCooldown = 1f;
+    private float collisionCooldownTimer;
+
     CheckpointManager cm;
 
     void Start()
@@ -41,26 +44,35 @@ public class Health : MonoBehaviour
         }
 
         // Restore health
-        if (cm.Checkpoints[cm.CheckpointTargetCount].ActiveCheckpoint
+        if (cm.Checkpoints[cm.CheckpointTargetCount].CompletedCheckpoint
             && !cm.FinalCheckpointReached)
         {
             CurrentHealth += healthRestoreAmount;
-            Debug.Log("Health increased by " + healthRestoreAmount);
+            CurrentHealth = Mathf.Clamp(CurrentHealth, 0, maxHealth);
+        }
+
+        if (collisionCooldownTimer > 0)
+        {
+            collisionCooldownTimer -= Time.deltaTime;
+        }
+        else
+        {
+            collisionCooldownTimer = 0;
         }
     }
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.layer == 10) // Obstacle layer
+        if (collision.gameObject.layer == 10 && collisionCooldownTimer == 0) // Obstacle layer
         {
             Debug.Log("COLLISION!");
+            collisionCooldownTimer = collisionCooldown;
             float collisionForce = collision.relativeVelocity.magnitude;
             if (collisionForce > collisionForceMinimum)
             {
                 Debug.Log("Collision force " + collisionForce + " is higher than " +
                     collisionForceMinimum + ". Health minus " + collisionForce);
                 CurrentHealth -= collisionForce;
-                
             }
             else
             {
