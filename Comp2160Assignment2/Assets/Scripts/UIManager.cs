@@ -94,7 +94,7 @@ public class UIManager : MonoBehaviour
         }
         if(TimeList.Count < checkpointManager.Checkpoints.Count)
         {
-            for(int i=TimeList.Count;i<((checkpointManager.Checkpoints.Count-TimeList.Count)+TimeList.Count);i++)
+            for(int i=TimeList.Count;i<checkpointManager.Checkpoints.Count;i++)
             {
                 checkpointString += "Checkpoint "+(i+1)+": Incomplete \n";
             }
