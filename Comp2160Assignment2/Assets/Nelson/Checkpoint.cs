@@ -4,36 +4,41 @@ using UnityEngine;
 
 public class Checkpoint : MonoBehaviour
 {
-    private Light light;
+    private Light checkpointLight;
     public float lightIntensity = 10f;
-    public bool ActiveCheckpoint
+    public bool CompletedCheckpoint
     {
         private set;
         get;
     }
 
+    SphereCollider sphereCollider;
+
     void Start()
     {
-        light = GetComponentInChildren<Light>();
-        ActiveCheckpoint = false;
+        checkpointLight = GetComponentInChildren<Light>();
+        sphereCollider = GetComponent<SphereCollider>();
+
+        sphereCollider.enabled = false;
+        CompletedCheckpoint = false;
     }
 
     // Can't interact with this checkpoint anymore
     public void DeactivateLight()
     {
-        light.intensity = 0;
-        SphereCollider sphereCollider = GetComponent<SphereCollider>();
+        checkpointLight.intensity = 0;
         sphereCollider.enabled = false;
     }
 
     public void ActivateLight()
     {
-        light.intensity = lightIntensity;
+        checkpointLight.intensity = lightIntensity;
+        sphereCollider.enabled = true;
     }
 
     void OnTriggerEnter(Collider other)
     {
         Debug.Log("CHECKPOINT");
-        ActiveCheckpoint = true;
+        CompletedCheckpoint = true;
     }
 }

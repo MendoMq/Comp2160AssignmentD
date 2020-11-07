@@ -22,14 +22,20 @@ public class Health : MonoBehaviour
         get;
     }
 
+    public float collisionCooldown = 1f;
+    private float collisionCooldownTimer;
+
     CheckpointManager cm;
+    ParticleSystem smokeParticle;
+    public ParticleSystem deathExplosionParticle;
 
     void Start()
     {
         cm = FindObjectOfType<CheckpointManager>();
+        smokeParticle = GetComponentInChildren<ParticleSystem>();
         CurrentHealth = maxHealth;
         PlayerDied = false;
-        Debug.Log("Smoke when health is below " + (maxHealth * smokeThreshold));
+        smokeParticle.Stop();
     }
 
     void Update()
@@ -38,29 +44,51 @@ public class Health : MonoBehaviour
         if (CurrentHealth <= 0 && PlayerDied != true)
         {
             PlayerDied = true;
+            Instantiate(deathExplosionParticle, transform.position, Quaternion.identity);
+            gameObject.SetActive(false);
+        }
+
+        // Start smoke when below certain amount
+        if (CurrentHealth < (maxHealth * smokeThreshold))
+        {
+            if (smokeParticle.isStopped)
+            {
+                smokeParticle.Play();
+            }
         }
 
         // Restore health
-        if (cm.Checkpoints[cm.CheckpointTargetCount].ActiveCheckpoint
+        if (cm.Checkpoints[cm.CheckpointTargetCount].CompletedCheckpoint
             && !cm.FinalCheckpointReached)
         {
             CurrentHealth += healthRestoreAmount;
-            Debug.Log("Health increased by " + healthRestoreAmount);
+            CurrentHealth = Mathf.Clamp(CurrentHealth, 0, maxHealth);
+        }
+
+        // Countsdown before another collision can be detected
+        if (collisionCooldownTimer > 0)
+        {
+            collisionCooldownTimer -= Time.deltaTime;
+        }
+        else
+        {
+            collisionCooldownTimer = 0;
         }
     }
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.layer == 10) // Obstacle layer
+        // If you collide with an obstacle, cooldown is 0, and you haven't won yet
+        if (collision.gameObject.layer == 10 && collisionCooldownTimer == 0
+            && !cm.FinalCheckpointReached)
         {
-            Debug.Log("COLLISION!");
+            collisionCooldownTimer = collisionCooldown;
             float collisionForce = collision.relativeVelocity.magnitude;
             if (collisionForce > collisionForceMinimum)
             {
                 Debug.Log("Collision force " + collisionForce + " is higher than " +
                     collisionForceMinimum + ". Health minus " + collisionForce);
                 CurrentHealth -= collisionForce;
-                
             }
             else
             {
