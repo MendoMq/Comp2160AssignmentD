@@ -44,6 +44,7 @@ public class Health : MonoBehaviour
         if (CurrentHealth <= 0 && PlayerDied != true)
         {
             PlayerDied = true;
+            Instantiate(deathExplosionParticle, transform.position, Quaternion.identity);
             gameObject.SetActive(false);
         }
 
@@ -95,10 +96,5 @@ public class Health : MonoBehaviour
                     collisionForceMinimum + ". No health lost");
             }
         }
-    }
-
-    void OnDisable()
-    {
-        Instantiate(deathExplosionParticle, transform.position, Quaternion.identity);
     }
 }
