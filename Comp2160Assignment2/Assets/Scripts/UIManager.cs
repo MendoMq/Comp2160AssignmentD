@@ -67,8 +67,6 @@ public class UIManager : MonoBehaviour
         if(checkpointManager.FinalCheckpointReached && !gameOver)
         {
             Debug.Log("FINAL POINT REACHED");
-            TimeList.Add(timeText);
-            Debug.Log(TimeList[TimeList.Count-1]);
             gameOverScreen();
         }
 
@@ -90,8 +88,16 @@ public class UIManager : MonoBehaviour
             resultText.text = "You Won!";
         }
         gameOverPanel.SetActive(true);
+
         for(int i =0;i<TimeList.Count;i++){
             checkpointString += "Checkpoint "+(i+1)+": "+TimeList[i] + "\n";
+        }
+        if(TimeList.Count < checkpointManager.Checkpoints.Count)
+        {
+            for(int i=TimeList.Count;i<((checkpointManager.Checkpoints.Count-TimeList.Count)+TimeList.Count);i++)
+            {
+                checkpointString += "Checkpoint "+(i+1)+": Incomplete \n";
+            }
         }
         checkpointText.text = checkpointString;
     }

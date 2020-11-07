@@ -656,6 +656,11 @@ PrefabInstance:
       propertyPath: turn
       value: 1.5
       objectReference: {fileID: 0}
+    - target: {fileID: 5984151109909143319, guid: 293a87126c2483c4ba15152e0e1e50e3,
+        type: 3}
+      propertyPath: thrust
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 293a87126c2483c4ba15152e0e1e50e3, type: 3}
 --- !u!1 &1496538890
@@ -1532,6 +1537,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: World
+      objectReference: {fileID: 0}
+    - target: {fileID: 8790724862378580960, guid: a78ef77f6b3a8624699b817272a4f2e7,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8790724862378580961, guid: a78ef77f6b3a8624699b817272a4f2e7,
         type: 3}
