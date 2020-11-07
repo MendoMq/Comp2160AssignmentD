@@ -48,7 +48,7 @@ public class CheckpointManager : MonoBehaviour
 
     void LateUpdate()
     {
-        // Waits until x checkpoint becomes active
+        // Waits until x checkpoint becomes completed
         if (Checkpoints[CheckpointTargetCount].CompletedCheckpoint && !FinalCheckpointReached)
         {
             if (CheckpointTargetCount == 0) // First checkpoint

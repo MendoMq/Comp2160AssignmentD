@@ -30,6 +30,7 @@ public class Checkpoint : MonoBehaviour
         sphereCollider.enabled = false;
     }
 
+    // Current checkpoint objective
     public void ActivateLight()
     {
         checkpointLight.intensity = lightIntensity;
@@ -38,7 +39,6 @@ public class Checkpoint : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log("CHECKPOINT");
         CompletedCheckpoint = true;
     }
 }
