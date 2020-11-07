@@ -26,13 +26,16 @@ public class Health : MonoBehaviour
     private float collisionCooldownTimer;
 
     CheckpointManager cm;
+    ParticleSystem smokeParticle;
+    public ParticleSystem deathExplosionParticle;
 
     void Start()
     {
         cm = FindObjectOfType<CheckpointManager>();
+        smokeParticle = GetComponentInChildren<ParticleSystem>();
         CurrentHealth = maxHealth;
         PlayerDied = false;
-        Debug.Log("Smoke when health is below " + (maxHealth * smokeThreshold));
+        smokeParticle.Stop();
     }
 
     void Update()
@@ -41,6 +44,16 @@ public class Health : MonoBehaviour
         if (CurrentHealth <= 0 && PlayerDied != true)
         {
             PlayerDied = true;
+            gameObject.SetActive(false);
+        }
+
+        // Start smoke when below certain amount
+        if (CurrentHealth < (maxHealth * smokeThreshold))
+        {
+            if (smokeParticle.isStopped)
+            {
+                smokeParticle.Play();
+            }
         }
 
         // Restore health
@@ -51,6 +64,7 @@ public class Health : MonoBehaviour
             CurrentHealth = Mathf.Clamp(CurrentHealth, 0, maxHealth);
         }
 
+        // Countsdown before another collision can be detected
         if (collisionCooldownTimer > 0)
         {
             collisionCooldownTimer -= Time.deltaTime;
@@ -63,9 +77,10 @@ public class Health : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.layer == 10 && collisionCooldownTimer == 0) // Obstacle layer
+        // If you collide with an obstacle, cooldown is 0, and you haven't won yet
+        if (collision.gameObject.layer == 10 && collisionCooldownTimer == 0
+            && !cm.FinalCheckpointReached)
         {
-            Debug.Log("COLLISION!");
             collisionCooldownTimer = collisionCooldown;
             float collisionForce = collision.relativeVelocity.magnitude;
             if (collisionForce > collisionForceMinimum)
@@ -80,5 +95,10 @@ public class Health : MonoBehaviour
                     collisionForceMinimum + ". No health lost");
             }
         }
+    }
+
+    void OnDisable()
+    {
+        Instantiate(deathExplosionParticle, transform.position, Quaternion.identity);
     }
 }
