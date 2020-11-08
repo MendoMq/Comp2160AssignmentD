@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Analytics;
 
 public class UIManager : MonoBehaviour
 {
@@ -26,6 +27,7 @@ public class UIManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        AnalyticsEvent.GameStart();
         checkpointManager = FindObjectOfType<CheckpointManager>();
         healthBar = FindObjectOfType<Slider>();
         player = FindObjectOfType<Health>();
@@ -58,8 +60,15 @@ public class UIManager : MonoBehaviour
 
             TimeList.Add(timeText);
             Debug.Log(TimeList[targetCount]);
-            if(targetCount < checkpointManager.Checkpoints.Count-1){
-                Debug.Log("increment");
+
+            Analytics.CustomEvent("Checkpoint "+ (targetCount+1) +" passed", new Dictionary<string, object>
+            {
+                { "Time",TimeList[targetCount]},
+                { "Health", player.CurrentHealth}
+            });
+
+            if(targetCount < checkpointManager.Checkpoints.Count-1)
+            {
                 targetCount++;
             }
         }
@@ -67,17 +76,24 @@ public class UIManager : MonoBehaviour
         if(checkpointManager.FinalCheckpointReached && !gameOver)
         {
             Debug.Log("FINAL POINT REACHED");
-            gameOverScreen();
+            GameOverScreen();
         }
 
         if(player.PlayerDied && !gameOver)
         {
-            gameOverScreen();
+            Analytics.CustomEvent("Player died", new Dictionary<string, object>
+            {
+                {"Time",timeText},
+                {"Player Position",player.gameObject.transform.position},
+            });
+
+            GameOverScreen();
         }
     }
 
-    public void gameOverScreen()
+    public void GameOverScreen()
     {
+        AnalyticsEvent.GameOver();
         gameOver = true;
         if(player.PlayerDied)
         {
@@ -87,11 +103,14 @@ public class UIManager : MonoBehaviour
         {
             resultText.text = "You Won!";
         }
+
         gameOverPanel.SetActive(true);
 
-        for(int i =0;i<TimeList.Count;i++){
+        for(int i =0;i<TimeList.Count;i++)
+        {
             checkpointString += "Checkpoint "+(i+1)+": "+TimeList[i] + "\n";
         }
+
         if(TimeList.Count < checkpointManager.Checkpoints.Count)
         {
             for(int i=TimeList.Count;i<checkpointManager.Checkpoints.Count;i++)
@@ -99,6 +118,11 @@ public class UIManager : MonoBehaviour
                 checkpointString += "Checkpoint "+(i+1)+": Incomplete \n";
             }
         }
+
+        Analytics.CustomEvent("Game Finished", new Dictionary<string, object>
+        {
+            {"Checkpoint Times", checkpointString}
+        });
         checkpointText.text = checkpointString;
     }
 }

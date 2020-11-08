@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class SceneManagerScript : MonoBehaviour
 {
-    public void RestartScene(){
+    public void RestartScene()
+    {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

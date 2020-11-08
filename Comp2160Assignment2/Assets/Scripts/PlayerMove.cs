@@ -48,7 +48,6 @@ public class PlayerMove : MonoBehaviour {
 		if (Physics.Raycast(transform.position,-transform.up,0.5f,rayLayermask))
 		{
 				isRayGrounded=true;
-
 		}
 		else
 		{
@@ -58,14 +57,16 @@ public class PlayerMove : MonoBehaviour {
 
 	void OnCollisionStay(Collision collision)
 	{
-		if (collision.gameObject.layer == 8 && isRayGrounded){
+		if (collision.gameObject.layer == 8 && isRayGrounded)
+		{
 			isGrounded = true;
 		}
 	}
 
 	void OnCollisionExit(Collision collision)
 	{
-		if (collision.gameObject.layer == 8){
+		if (collision.gameObject.layer == 8)
+		{
 			isGrounded = false;
 		}
 	}
